@@ -15,53 +15,62 @@ phoneButton.onclick = () => {
     }
 }
 
-const tabs = document.querySelectorAll('.tab_content_item');
-const tabContents = document.querySelectorAll('.tab_content_block');
+// TAB SLIDER
+
+const tabContentBlocks = document.querySelectorAll('.tab_content_block');
+const tabItems = document.querySelectorAll('.tab_content_item');
+const tabsParent = document.querySelector('.tab_content_items');
+
+const hideTabContent = () => {
+    tabContentBlocks.forEach(item => {
+        item.style.display = 'none';
+    });
+    tabItems.forEach(item => {
+        item.classList.remove('tab_content_item_active');
+    });
+}
+
+const showTabContent = (index = 0) => {
+    tabContentBlocks[index].style.display = 'block';
+    tabItems[index].classList.add('tab_content_item_active');
+};
+
+hideTabContent();
+showTabContent();
+
+tabsParent.onclick = (event) => {
+    if (event.target.classList.contains('tab_content_item')) {
+        tabItems.forEach((item, i) => {
+            if (event.target === item) {
+                hideTabContent();
+                showTabContent(i);
+                currentIndex = i;
+                resetAutoSwitch();
+            }
+        });
+    }
+}
 
 let currentIndex = 0;
 let intervalId = null;
 
-function hideAllTabs() {
-    tabs.forEach(tab => tab.classList.remove('tab_content_item_active'));
-    tabContents.forEach(content => {
-        content.style.display = 'none';
-    });
-}
-function showTab(index) {
-    tabs[index].classList.add('tab_content_item_active');
-    tabContents[index].style.display = 'block';
-    currentIndex = index;
+function autoSwitch() {
+    currentIndex = (currentIndex + 1) % tabItems.length;
+    hideTabContent();
+    showTabContent(currentIndex);
 }
 
-function autoSwitch() {
-    currentIndex++;
-    if (currentIndex >= tabs.length) {
-        currentIndex = 0;
-    }
-    hideAllTabs();
-    showTab(currentIndex);
-}
 function startAutoSwitch() {
     intervalId = setInterval(autoSwitch, 3000);
 }
 
 function stopAutoSwitch() {
     clearInterval(intervalId);
-    intervalId = null;
 }
+
 function resetAutoSwitch() {
     stopAutoSwitch();
     startAutoSwitch();
 }
-tabs.forEach((tab, index) => {
-    tab.addEventListener('click', () => {
-        hideAllTabs();
-        showTab(index);
-        resetAutoSwitch();
-    });
-});
-
-hideAllTabs();
-showTab(currentIndex);
 
 startAutoSwitch();

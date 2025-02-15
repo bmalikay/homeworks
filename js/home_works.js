@@ -73,41 +73,5 @@ resetButton.addEventListener("click", () => {
     timer = null;
 });
 
-//hw3
-document.addEventListener("DOMContentLoaded", () => {
-    const modal = document.querySelector(".modal");
-    const modalClose = document.querySelector(".modal_close");
 
-    if (!modal || !modalClose) return;
-
-    let modalShown = false;
-
-    function showModal() {
-        if (!modalShown) {
-            modal.style.display = "block";
-            document.body.style.overflow = "hidden";
-            modalShown = true;
-            window.removeEventListener("scroll", scrollHandler);
-        }
-    }
-
-    modalClose.addEventListener("click", () => {
-        modal.style.display = "none";
-        document.body.style.overflow = "";
-    });
-
-    //  Модалка через 10 секунд после загрузки страницы
-    setTimeout(() => {
-        showModal();
-    }, 10000);
-
-    // Модалка по скроллу до конца страницы
-    function scrollHandler() {
-        if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight) {
-            showModal();
-        }
-    }
-
-    window.addEventListener("scroll", scrollHandler);
-});
 
