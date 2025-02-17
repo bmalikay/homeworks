@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Гарри Поттер",
+    "age": 18,
+    "person_photo": "https://trikky.ru/wp-content/blogs.dir/1/files/2020/03/27/screenshot_20200327_144358.jpg"
+  },
+  {
+    "name": "Гермиона",
+    "age": 17,
+    "person_photo": "https://uznayvse.ru/images/heroes/2021/7/hermione-granger_big.jpg"
+  },
+  {
+    "name": "Рон Уивзли",
+    "age": 18,
+    "person_photo": "https://upload.wikimedia.org/wikipedia/ru/3/32/Grint-Weasley.png"
+  }
+]

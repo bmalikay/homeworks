@@ -73,5 +73,31 @@ resetButton.addEventListener("click", () => {
     timer = null;
 });
 
+// hw 4
+const charactersList = () => {
+    const request = new XMLHttpRequest();
+    request.open("GET", '../data/persons.json', true);
+    request.send();
 
+    request.onload = () => {
+        if (request.status === 200) {
+            const data = JSON.parse(request.response);
+
+            const charactersListContainer = document.querySelector('.characters-list');
+            charactersListContainer.innerHTML = '';
+
+            data.forEach(person => {
+                charactersListContainer.innerHTML += `
+                    <div class="character-card">
+                        <img src="${person.person_photo}" alt="${person.name}">
+                        <h4>${person.name}</h4>
+                        <p style="color: white;">Возраст: ${person.age}</p>
+                    </div>
+                `;
+            });
+        }
+    }
+};
+
+charactersList();
 
