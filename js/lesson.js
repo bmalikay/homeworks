@@ -117,3 +117,41 @@ const converter = (element, targetElement1, targetElement2) => {
 converter(somInput, usdInput, eurInput);
 converter(usdInput, somInput, eurInput);
 converter(eurInput, usdInput, somInput);
+
+
+// CARD SWITCHER
+const cardBlock = document.querySelector('.card');
+const btnNext = document.querySelector('#btn-next');
+const btnPrev = document.querySelector('#btn-prev');
+
+let cardId = 1;
+
+const loadCard = () => {
+    fetch(`https://jsonplaceholder.typicode.com/todos/${cardId}`)
+        .then(response => response.json())
+        .then(data => {
+            cardBlock.innerHTML = `
+                <p>${data.title}</p>
+                <p>Completed: ${data.completed ? "✅" : "❌"}</p>
+                <span>ID: ${data.id}</span>
+            `;
+        })
+        .catch(error => console.error("Ошибка загрузки карточки:", error));
+};
+
+btnNext.onclick = () => {
+    cardId = cardId >= 200 ? 1 : cardId + 1;
+    loadCard();
+};
+
+btnPrev.onclick = () => {
+    cardId = cardId <= 1 ? 200 : cardId - 1;
+    loadCard();
+};
+
+loadCard();
+
+fetch("https://jsonplaceholder.typicode.com/posts")
+    .then(response => response.json())
+    .then(posts => console.log("Список постов:", posts))
+    .catch(error => console.error("Ошибка загрузки постов:", error));
